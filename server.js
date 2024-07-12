@@ -49,7 +49,7 @@ const getAllCustomers = async () => {
   console.log('All customers', customers)
 }
 
-
+// updating a Customer 
 const updateCustomer = async () => {
   const customerId = prompt('Enter the customer\s id you want to update (copy-paste the id): ');
   const customerName = prompt('What is cutomer\s new name: ');
@@ -60,7 +60,7 @@ const updateCustomer = async () => {
   }, { new: true })
   console.log(updateCustomerData);
 }
-
+// Deleting a customer
 const deleteCustomer = async () => {
   const getCustomerId =  prompt('Enter the customer\s id you want to delete (copy-paste the id): ');
   const deleteCustomerData = await Customer.findById(getCustomerId);
