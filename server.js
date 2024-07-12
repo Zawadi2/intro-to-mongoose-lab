@@ -13,7 +13,7 @@ const connect = async () => {
     // await runQueries()
     // await mongoose.disconnect();
     // console.log('Disconnected from MongoDB');
-    // process.exit();
+    process.exit();
 };
 
 // const runQueries = async () => {
@@ -49,33 +49,25 @@ const getAllCustomers = async () => {
   console.log('All customers', customers)
 }
 
-// // Read- show -get a single 
-// const getASingleCustomer = async () => {
-//   const id = '6690733702cb155ba8f0f296'
-//   const customer = await Customer.findById(id)
-//   console.log('Found todo', customer)
-// }
-
 
 const updateCustomer = async () => {
-  const id = '658226acdcbecfe9b99d5421';
-  const customerData = await Customer.findById(id);
-  // if (customerData) {
-    const newName = prompt("What is the customer's new name? ");
-    const newAge = prompt("What is the customer's new age? ");
-    const customer = await Customer.findByIdAndUpdate(id, { name: newName, age: newAge }, { new: true });
-    console.log('Updated customer', customer);
-  // } else {
-    console.log('Customer not found');
-  };
-
-const removeCustomer = async () => {
-  const id = '658226acdcbecfe9b99d5421'
-  const customer = await customer.findById(id)
-  // .remove is no longer in Mongoose
-  // .deleteOne
-  await customer.deleteOne()
+  const customerId = prompt('Enter the customer\s id you want to update (copy-paste the id): ');
+  const customerName = prompt('What is cutomer\s new name: ');
+  const customerAge = prompt('What is customer\s new age: ');
+  const updateCustomerData = await Customer.findByIdAndUpdate(customerId, {
+      name: customerName,
+      age: customerAge,
+  }, { new: true })
+  console.log(updateCustomerData);
 }
+
+const deleteCustomer = async () => {
+  const getCustomerId =  prompt('Enter the customer\s id you want to delete (copy-paste the id): ');
+  const deleteCustomerData = await Customer.findById(getCustomerId);
+  await deleteCustomerData.deleteOne();
+  console.log('Deleted'); 
+}
+
 
 const username = prompt('Welcome to the CRM ');
 
@@ -101,7 +93,7 @@ if (choice === '1') {
   
 } else if (choice === '4') {
   console.log("Delete Customer selected");
-  removeCustomer();
+  deleteCustomer();
   
 } else if (choice === '5') {
   console.log("Goodbye!");
